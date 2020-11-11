@@ -1,0 +1,7 @@
+{
+  "numberOfPersons": 1000,
+  "minAge": 10,
+  "maxAge": 100,
+  "csv": true,
+  "json": true
+}
