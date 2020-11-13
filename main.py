@@ -1,8 +1,12 @@
+# Dependencies
 import csv
 import random
 import time
 import json
 import os
+import xml.etree.ElementTree as ET
+
+# Other files
 import lastNameGenerator
 import firstNameGenerator
 import bigCityGenerator
@@ -41,5 +45,20 @@ if data["json"]:
         for i in range(numberOfPersons):
             dict[i] = {"first_name": random.choice(first_name), "last_name": random.choice(last_name), "age": random.randint(min_age, max_age), "city": random.choice(big_city)}
         json.dump(dict, f, indent=2)
+
+if data["xml"]:
+    data = ET.Element("data")
+    persons = ET.SubElement(data, "persons")
+    for _ in range(numberOfPersons):
+        a = ET.SubElement(persons, "person")
+        a.set("first_name", random.choice(first_name))
+        a.set("last_name", random.choice(last_name))
+        a.set("age", str(random.randint(min_age, max_age)))
+        a.set("city", random.choice(big_city))
+
+    myData = ET.tostring(data)
+    myFile = open("output/output.xml", "w")
+    myFile.write(myData.decode("utf-8"))
+    myFile.close()
     
 print(f"Done in: {time.time() - start} seconds.")
